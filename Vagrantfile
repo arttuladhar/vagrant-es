@@ -39,7 +39,7 @@ end
       node.vm.network "private_network", ip: "192.168.57.#{5+i}", hostname: true
       node.vm.provision :shell, :name => "Bootstrap", :path => "bootstrap.sh"
       node.vm.provision :shell, :name => "Configure ES - Primary", :path => "configure_esp.sh"
-      node.vm.provision :shell, :name => "Start ES", :path => "start_es.sh"
+      node.vm.provision :shell, :name => "Start ES", :path => "start_es.sh"      
     end
   end
   
@@ -58,4 +58,19 @@ end
       node.vm.provision :shell, :name => "Start ES", :path => "start_es.sh"
     end
   end
+
+  # Kibana
+  (1..1).each do |i|
+    config.vm.synced_folder "shared/", "/home/vagrant"
+    config.vm.define "kibana-#{format('%02d', i)}" do |node|
+      node.vm.hostname = "kibana-#{format('%02d', i)}"
+      node.hostmanager.aliases = [
+        "kibana-#{format('%02d', i)}.vm.cluster.local",
+        "es.vm.cluster.local"
+      ]
+      node.vm.network "private_network", ip: "192.168.57.#{200+i}", hostname: true
+      node.vm.provision :shell, :name => "Install Kibana", :path => "install_kibana.sh"
+    end
+  end
+
 end
