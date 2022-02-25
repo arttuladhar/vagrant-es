@@ -6,12 +6,15 @@ Vagrant configuration to run Elastic Search in clustered environment using Virtu
 
 Run [`get_es.sh`](shared/get_es.sh) to download ES locally. This Elastic Search package will be used to install Elasticsearch on primary and data nodes.
 
+```
+./shared/get_es.sh
+```
+
 ### Install Vagrant Host Manager
 
 ```
 vagrant plugin install vagrant-hostmanager
 ```
-
 
 ### Vagrant Commands
 ```bash
